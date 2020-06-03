@@ -4,7 +4,7 @@ export class ecoPoints1591152352761 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'EcoPoints',
+        name: 'eco_points',
         columns: [
           {
             name: 'id',
@@ -28,6 +28,6 @@ export class ecoPoints1591152352761 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('EcoPoints')
+    await queryRunner.dropTable('eco_points')
   }
 }
