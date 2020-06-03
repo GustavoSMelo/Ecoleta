@@ -1,19 +1,30 @@
 import 'reflect-metadata'
-import { getConnection, createConnection } from 'typeorm'
+import { getConnection, createConnection, Connection } from 'typeorm'
 import { Request, Response } from 'express'
 import ConnectionConfig from '../config/connection'
 
 class ItemController {
-  index(req: Request, res: Response) {
-    createConnection(ConnectionConfig)
-      .then((connection) => {
-        res.send({ Connectei: true })
-        return getConnection().close()
+  async index(req: Request, res: Response) {
+    try {
+      const connection = await createConnection(ConnectionConfig)
+      const itemRepository = connection.getRepository('items')
+
+      const allItems = await itemRepository.find()
+
+      const serialized = allItems.map((item) => {
+        return {
+          title: item.title,
+          image_url: `http://localhost:3333/images/${item.image}`
+        }
       })
-      .catch((err) => {
-        res.json({ Connectei: false })
-        console.log(err)
-      })
+
+      res.json(serialized)
+
+      return connection.close()
+    } catch (err) {
+      res.send('connection lost')
+      console.log(err)
+    }
   }
 }
 
