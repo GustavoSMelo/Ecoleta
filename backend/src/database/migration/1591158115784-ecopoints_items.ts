@@ -7,7 +7,7 @@ export class ecopointsItems1591158115784 implements MigrationInterface {
       ecopoint INT,
       item INT,
       PRIMARY KEY (id),
-      FOREIGN KEY (ecopoint) REFERENCES ecopoints(id),
+      FOREIGN KEY (ecopoint) REFERENCES eco_points(id),
       FOREIGN KEY (item) REFERENCES items(id)
     )charset=utf8 engine=innoDB`)
   }
