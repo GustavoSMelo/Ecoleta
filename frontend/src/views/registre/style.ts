@@ -72,7 +72,7 @@ export const Container = styled.main`
         border-radius: 5px;
         border: none;
         padding: 30px;
-        transition: 0.5;
+        transition: 0.5s;
     }
     figure{
         display: flex;
@@ -84,6 +84,7 @@ export const Container = styled.main`
         border: solid 3px #34cb79;
         background-color: #68cb7955;
         transition: 0.5;
+        transition: 0.5s;
     }
 
     .map {
