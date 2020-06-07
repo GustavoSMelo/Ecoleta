@@ -9,6 +9,7 @@ import ItemInterface from "../../interfaces/ItemInterface";
 import InitialsInterface from "../../interfaces/UFInitialsInterface";
 import InitialCityInterface from "../../interfaces/CityInterfaces";
 import { FaSignInAlt } from "react-icons/fa";
+import Dropzone from '../../components/dropzone'
 
 const Registre = () => {
   const [Ritems, setRitems] = useState<ItemInterface[]>([]);
@@ -23,6 +24,7 @@ const Registre = () => {
   const [initials, setInitials] = useState<string[]>([]);
   const [initialsCity, setInitialsCity] = useState<string[]>([]);
   const [message, setMessage] = useState(<></>);
+  const [image, setImage] = useState<File>();
 
   const getDataByMyAPI = async () => {
     const response = await api.get("/items");
@@ -76,7 +78,7 @@ const Registre = () => {
       event.preventDefault();
 
       if (
-        name === "" || whatsapp === "" || email === "" || latitude === 0 ||
+        image === undefined ||name === "" || whatsapp === "" || email === "" || latitude === 0 ||
         longitude === 0 || uf === "0" || city === "0" || items.length === 0
       ) {
         return setMessage(
@@ -86,9 +88,22 @@ const Registre = () => {
         );
       }
 
+      const fd = new FormData()
+
+      fd.append('email', email);
+      fd.append('latitule', String(latitude));
+      fd.append('longitude', String(longitude));
+      fd.append('whatsapp', whatsapp);
+      fd.append('city',city);
+      fd.append('uf', uf);
+      fd.append('items', items.join(','));
+      fd.append('image', image);
+      fd.append('name', name);
+
+
       await api.post(
         "/ecopoints",
-        { email, name, latitude, longitude, uf, city, whatsapp, items },
+         fd ,
       );
       return setMessage(
         <ContainerSucess>Success in create a new point</ContainerSucess>,
@@ -109,6 +124,9 @@ const Registre = () => {
             Cadastro do <br /> ponto de coleta
           </h1>
           <br />
+
+            <Dropzone onFileUploaded={setImage} />
+
           <h2>Dados</h2>
           <input
             type="text"
@@ -171,6 +189,7 @@ const Registre = () => {
           </select>
           <h2>Itens de coleta</h2>
           <small>Selecione alguns items de coleta:</small>
+
           <ul>
             {Ritems.map((item: ItemInterface) =>
               <li
