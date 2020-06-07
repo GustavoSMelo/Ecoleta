@@ -16,13 +16,14 @@ class EcoPointsController {
         name,
         uf,
         city,
-        image = req.file.filename,
         email,
         whatsapp,
         latitude,
         longitude,
         items
       } = req.body
+
+      const image = req.file.filename
 
       ecopoint.city = city
       ecopoint.uf = uf
