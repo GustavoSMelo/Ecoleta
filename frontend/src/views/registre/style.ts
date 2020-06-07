@@ -12,6 +12,7 @@ export const Container = styled.main`
     border-radius: 5px;
     box-shadow: 1px 1px 3px #bcbcbc;
 
+
     h1,
     h2 {
         color: #070f47;
