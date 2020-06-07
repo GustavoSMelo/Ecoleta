@@ -16,7 +16,7 @@ class EcoPointsController {
         name,
         uf,
         city,
-        image = 'https://images.unsplash.com/photo-1580913428706-c311e67898b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+        image = req.file.filename,
         email,
         whatsapp,
         latitude,
@@ -39,7 +39,7 @@ class EcoPointsController {
       res.json({ message: 'success to create a new ecopoint :) ' })
 
       /* eslint-disable camelcase */
-      const ecopoints_item = items.map((item: number) => {
+      const ecopoints_item = items.split(',').map((item: string) => Number(item.trim())).map((item: number) => {
         return {
           item,
           ecopoint: id
