@@ -50,7 +50,9 @@ class EcoPointsController {
       await ecopoint_itemRepository.save(ecopoints_item)
       return connection.close()
     } catch (err) {
+      console.log(err)
       return res.send('connection lost')
+
     }
   }
 
