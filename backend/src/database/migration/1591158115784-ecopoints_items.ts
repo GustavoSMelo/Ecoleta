@@ -9,7 +9,7 @@ export class ecopointsItems1591158115784 implements MigrationInterface {
       PRIMARY KEY (id),
       FOREIGN KEY (ecopoint) REFERENCES eco_points(id),
       FOREIGN KEY (item) REFERENCES items(id)
-    )charset=utf8 engine=innoDB`)
+    )`)
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
